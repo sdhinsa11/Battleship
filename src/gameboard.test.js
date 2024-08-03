@@ -1,6 +1,6 @@
 import{
     Gameboard
-  } from './gameboard';
+} from './gameboard';
 
 import{
     Ship

@@ -1,6 +1,3 @@
-
-
-
 class Gameboard{
 
     constructor(){
