@@ -1,5 +1,6 @@
 // creating a class
 
+
 class Ship{
 
     constructor(color, length){
@@ -7,6 +8,7 @@ class Ship{
         this.length = length;
         this.hits = 0;
         this.sunk = false;
+        this.coord = [];
     }
 
     hit(){
@@ -23,4 +25,4 @@ class Ship{
 
 export{
     Ship
-}
+};
