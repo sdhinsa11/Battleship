@@ -1,37 +1,14 @@
 import './style.css';
 
+const startButton = document.getElementById("start");
 
+startButton.addEventListener("click", ()=>{
+    
+})
 
+// Step 1. When press start button, it should render the boards and display whose turn 
+// things needed: render board, event listener on start button, create new instances of people, create the gameboards and place ships properly/randomly
 
-// the event listener module - which will import the dom
+//Step 2. After step 1 is done, put in logic for clicking on cell, this is when you add function to buttons that click the cell and see if hit
+// things needed: render board after each turn, function for clicking cell, making sure the same cell wasnt picked twice, making sure that its on the board, making sure that the game functions are called properly, handling how the computer takes turns, showing the items/misplaced, computer AI for taking turns
 
-//Dom:
-// will have render boards, the handle click function, display end, display turns, display winner/loser
-
-// inside render is just making the board from gameboard - it will take the player and w
-
-
-// start button 
-// grab the information and send it 
-// clicking the buttons on the thing
-
-// create player/computer in this module and send to the dom to render boards and such
-
-
-// the dialog with be here 
-// grab the name
-// then after we grab the names we do the start game
-
-
-// game flow:
-
-// start game -- take the turns and do the switch turns here 
-// handle clicks/take turns:
-// to handle clicks: we need to keep track of what/who, we also need to switch player, get the computer to place one coordinate  as they "click a button", the player cliking the button is not a problem, problem is figuring out how to lay it all out
-
-// end game
-
-
-
-// google battleship odin project 
-// need help with determining how to layout the game turns 
