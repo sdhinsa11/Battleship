@@ -3,8 +3,8 @@
 
 class Ship{
 
-    constructor(color, length){
-        this.color = color;
+    constructor(length){
+        // this.color = color;
         this.length = length;
         this.hits = 0;
         this.sunk = false;
@@ -13,6 +13,7 @@ class Ship{
 
     hit(){
         this.hits+= 1;
+        this.isSunk();
     }
 
     isSunk(){

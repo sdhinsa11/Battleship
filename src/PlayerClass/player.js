@@ -1,6 +1,6 @@
 import{
     Gameboard
-} from './gameboard';
+} from '../Board/gameboard';
 
 
 class Player{
