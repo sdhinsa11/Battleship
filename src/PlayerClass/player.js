@@ -7,7 +7,7 @@ class Player{
 
     constructor(name){
         this.name = name;
-        this.gameboard = Gameboard(); 
+        this.gameboard = new Gameboard(); 
     }
 }
 
