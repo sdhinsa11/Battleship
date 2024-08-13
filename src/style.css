@@ -9,16 +9,18 @@
 }
 
 .gridContainer{
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 100px;
+    padding: 100px; 
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .bothBoards{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 40px;
+
 
 }

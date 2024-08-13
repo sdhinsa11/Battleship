@@ -20,8 +20,8 @@ function renderBoards(player, show = true){
 
     pBoardDisplay.innerHTML ='';
     pBoardDisplay.style.display = 'grid';
-    pBoardDisplay.style.gridTemplateColumns = 'repeat(10, 60px)';
-    pBoardDisplay.style.gridTemplateRows = 'repeat(10, 60px)';
+    pBoardDisplay.style.gridTemplateColumns = 'repeat(10, 50px)';
+    pBoardDisplay.style.gridTemplateRows = 'repeat(10, 50px)';
     pBoardDisplay.style.gap = '0px'; 
 
     boardArray.map((row, rowIndex) =>{
