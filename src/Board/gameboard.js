@@ -1,9 +1,14 @@
+import{
+    Ship
+} from '/Users/sohanadhinsa/Documents/odin-projects/Javascript_practice/Battleship/src/Ships/ship.js';
+
+
 class Gameboard{
 
     constructor(){
         this.board = this.creatingBoard();
         this.missedAttacks = [];
-        this.ships = []; // all ship objects in here 
+        this.ships = [new Ship(2), new Ship(3), new Ship(4), new Ship(4), new Ship(5)]; // all ship objects in here 
     }
 
     creatingBoard(){
@@ -22,7 +27,8 @@ class Gameboard{
 
             for(let i = 0; i<ship.length;i++){
 
-                if (this.canPlaceShips(x,y)){
+                if (this.canPlaceShips(x,y+i)){
+                    console.log(ship instanceof Ship);
                     this.board[x][y+i].s = ship; // switch it so that it takes the color and displays that
                     ship.coord.push({x: x, y: y+i});
                 }
@@ -38,7 +44,7 @@ class Gameboard{
         else if (direction === "vertical"){
             for(let i = 0; i<ship.length;i++){
 
-                if (this.canPlaceShips(x,y)){
+                if (this.canPlaceShips(x+i,y)){
                     this.board[x+i][y].s = ship;
                     ship.coord.push({x: x+i, y: y});
                 }
@@ -54,9 +60,12 @@ class Gameboard{
 
     // alert that you cannot place ship here
     canPlaceShips(x, y){
-        if (this.board[x][y].s != null){
-            return false;
-            // alert error that you cannot place ship here
+        if (this.board[x] && this.board[x][y]){
+            if (this.board[x][y].s != null){
+                return false;
+                // alert error that you cannot place ship here
+            }
+
         }
         return true;
     }

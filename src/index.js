@@ -2,7 +2,7 @@ import './style.css';
 
 import{
     Player
-} from '/Users/sohanadhinsa/Documents/odin-projects/Javascript_practice/Battleship/src/PlayerClass/player.js'
+} from '/Users/sohanadhinsa/Documents/odin-projects/Javascript_practice/Battleship/src/PlayerClass/player.js';
 
 
 function renderBoards(player, show = true){
@@ -27,15 +27,24 @@ function renderBoards(player, show = true){
     boardArray.map((row, rowIndex) =>{
         return row.map((cell, colIndex)=>{
             let button = document.createElement('button');
-            button.textContent = cell;
             button.style.border = '1px solid black';
             button.style.borderRadius = '3px';
-            // button.style.height = '50px';
-            // button.style.width = '50px';
             button.style.fontSize= '5px';
             button.style.fontWeight = 'bold';
 
-            // add colour here for the object 
+            if (player.gameboard.board[rowIndex][colIndex].hit){
+                button.style.backgroundColor = "red";
+            }
+            else if (player.gameboard.board[rowIndex][colIndex].touched){
+                button.style.backgroundColor = "dark grey";
+            }
+
+            else if (player.gameboard.board[rowIndex][colIndex].s != null){
+                button.style.backgroundColor = "pink";
+            }
+            else{
+                button.style.backgroundColor = "white";
+            }
 
             pBoardDisplay.appendChild(button);
 
@@ -52,6 +61,22 @@ function displayTurn(player){
     display.innerHTML=`${player.name}'s turn`;
 }
 
+function puttingShips(player){
+    const shipOne = player.gameboard.ships[0];
+    const shipTwo = player.gameboard.ships[1];
+    const shipThree = player.gameboard.ships[2];
+    const shipFour = player.gameboard.ships[3];
+    const shipFive = player.gameboard.ships[4];
+
+    player.gameboard.placeShips(0,0,shipOne,"horizontal");
+    player.gameboard.placeShips(1,3,shipTwo,"horizontal");
+    player.gameboard.placeShips(2,0,shipThree,"horizontal");
+    player.gameboard.placeShips(3,0,shipFour,"horizontal");
+    player.gameboard.placeShips(9,0,shipFive,"horizontal");
+
+
+}
+
 const startButton = document.getElementById("start");
 startButton.addEventListener("click", ()=>{
     const pOneName = document.getElementById("player1").value;
@@ -62,6 +87,11 @@ startButton.addEventListener("click", ()=>{
     const starting = document.querySelector(".startScreen");
     starting.style.display = 'none';
 
+    //placing ships
+    puttingShips(playerOne);
+    puttingShips(computer);
+
+    // displaying board and turn
     renderBoards(playerOne);
     renderBoards(computer);
     displayTurn(playerOne);
