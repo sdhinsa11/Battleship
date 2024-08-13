@@ -6,11 +6,11 @@
 .header{
     background-color: aquamarine;
     padding: 20px;
+    text-align: center;
 }
 
 .gridContainer{
     padding: 100px; 
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +21,26 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+}
 
+.startScreen{
+    margin: 0 auto;
+    margin-top: 200px;
+    padding: 40px;
 
+    /* need this to style the inside stuff */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    border: 1px solid orange;
+    width: 300px;
+}
+
+.displayTurns{
+    text-align: center;
+    padding-top: 100px;
+    font-weight: bold;
+    font-size: larger;
 }
