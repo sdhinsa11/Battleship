@@ -22,14 +22,15 @@ class Gameboard{
         return gboard;
     }
 
-    placeShips(ship, direction, rand = false, x=undefined, y=undefined){
+    placeShips(ship, direction=undefined, rand = false, x=undefined, y=undefined){
 
         // random choice 
         if (rand){
-            const rChoice = this.randomlyPlaceShips(ship, direction);
+            const rChoice = this.randomlyPlaceShips(ship);
             console.log(`rand choice: ${rChoice}`)
             x = rChoice.x;
             y = rChoice.y;
+            direction = rChoice.direction;
         }
 
         console.log(`Coord after: x: ${x} and y: ${y}`);
@@ -90,7 +91,7 @@ class Gameboard{
 
         else if (dir==="vertical"){
 
-            if (x + length > this.board.length) return false
+            if (x + length > this.board[0].length) return false
 
             for (let i = 0; i < length; i++){
                 if (((x+i) <= 9) && (y <= 9)){
@@ -111,17 +112,18 @@ class Gameboard{
         return Math.floor(Math.random() * 10);
     }
 
-    randomlyPlaceShips(ship, direction){
+    randomlyPlaceShips(ship){
 
         let x; 
         let y;
+        let direction = Math.random() < 0.5 ? "horizontal" : "vertical";
 
         do{
             x = this.randomCoords();
             y = this.randomCoords();
         } while (this.ships.some(ship => ship.coord.some(c=> c.x === x && c.y === y)) || !this.canPlaceShips(x, y, ship.length, direction))
 
-        return { x, y};
+        return { x, y, direction};
 
     }
 
