@@ -68,11 +68,11 @@ function puttingShips(player){
     const shipFour = player.gameboard.ships[3];
     const shipFive = player.gameboard.ships[4];
 
-    player.gameboard.placeShips(0,0,shipOne,"horizontal");
-    player.gameboard.placeShips(1,3,shipTwo,"horizontal");
-    player.gameboard.placeShips(2,0,shipThree,"horizontal");
-    player.gameboard.placeShips(3,0,shipFour,"horizontal");
-    player.gameboard.placeShips(9,0,shipFive,"horizontal");
+    player.gameboard.placeShips(shipOne,"horizontal", player.name === "computer" ? true : false, 0,0);
+    player.gameboard.placeShips(shipTwo,"horizontal", player.name === "computer" ? true : false, 1,3);
+    player.gameboard.placeShips(shipThree,"horizontal", player.name === "computer" ? true : false, 2,0);
+    player.gameboard.placeShips(shipFour,"horizontal", player.name === "computer" ? true : false, 3,0);
+    player.gameboard.placeShips(shipFive,"horizontal", player.name === "computer" ? true : false, 9,0);
 
 
 }
@@ -99,7 +99,7 @@ startButton.addEventListener("click", ()=>{
     
 })
 // Step 1. When press start button, it should render the boards and display whose turn 
-// things needed: render board - CHECK , event listener on start button - CHECK, create new instances of people -CHECK , create the gameboards and place ships properly/randomly
+// things needed: render board - CHECK , event listener on start button - CHECK, create new instances of people -CHECK , create the gameboards - CHECK  and place ships properly - CHECK /randomly
 
 //Step 2. After step 1 is done, put in logic for clicking on cell, this is when you add function to buttons that click the cell and see if hit
 // things needed: render board after each turn, function for clicking cell, making sure the same cell wasnt picked twice, making sure that its on the board, making sure that the game functions are called properly, handling how the computer takes turns, showing the items/misplaced, computer AI for taking turns
