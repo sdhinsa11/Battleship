@@ -27,13 +27,13 @@ class Gameboard{
         // random choice 
         if (rand){
             const rChoice = this.randomlyPlaceShips(ship);
-            console.log(`rand choice: ${rChoice}`)
+            // console.log(`rand choice: ${rChoice}`)
             x = rChoice.x;
             y = rChoice.y;
             direction = rChoice.direction;
         }
 
-        console.log(`Coord after: x: ${x} and y: ${y}`);
+        // console.log(`Coord after: x: ${x} and y: ${y}`);
         
         if (direction === "horizontal"){
             if (this.canPlaceShips(x,y, ship.length, "horizontal")){
@@ -48,8 +48,6 @@ class Gameboard{
             }
 
         }
-
-
         // need to make sure that no one else puts there ship therel
         else if (direction === "vertical"){
             if (this.canPlaceShips(x,y, ship.length, "vertical")){
@@ -76,7 +74,7 @@ class Gameboard{
 
         if (dir==="horizontal"){
 
-            if (y + length > this.board[0].length) return false;
+            if (y + length > this.board[0].length) return false; // extra check to see if it fits on the board starting from that position
 
 
             for (let i =0; i < length; i++){
@@ -96,15 +94,15 @@ class Gameboard{
             for (let i = 0; i < length; i++){
                 if (((x+i) <= 9) && (y <= 9)){
                     if ( this.board[x + i] === undefined||this.board[x+i][y].s != null ){
-                        return false;
+                        return false; // cannot place 
                     }
                 }
             }
-            return true;
+            return true; // all pss
         }
 
         else{
-            return false;
+            return false; // cannot place cuz no direction
         }
     }
 
@@ -118,10 +116,11 @@ class Gameboard{
         let y;
         let direction = Math.random() < 0.5 ? "horizontal" : "vertical";
 
+        // goes until the conditions are not true 
         do{
             x = this.randomCoords();
             y = this.randomCoords();
-        } while (this.ships.some(ship => ship.coord.some(c=> c.x === x && c.y === y)) || !this.canPlaceShips(x, y, ship.length, direction))
+        } while (this.ships.some(ship => ship.coord.some(c=> c.x === x && c.y === y)) || !this.canPlaceShips(x, y, ship.length, direction)) //opposite of can place ships because if it registers as false then you cannot so to make the loop true we have to change the value
 
         return { x, y, direction};
 
@@ -133,6 +132,11 @@ class Gameboard{
 
         // add a functionality that displaye that colour as red/hit
         //hits this gameboard ships
+
+        // need to add if it is a viable place to be hit (i.e. not placing ontop of other place)
+
+
+
         if (this.ships.some(ship => ship.coord.some(c => c.x === x && c.y === y))){ // there is a ship that contains the coordinates that are hit 
             const hitShip = this.ships.find(ship => ship.coord.some(c => c.x === x && c.y === y)); // getting the ship that is hit
             this.board[x][y].hit = true;

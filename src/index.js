@@ -5,6 +5,13 @@ import{
 } from '/Users/sohanadhinsa/Documents/odin-projects/Javascript_practice/Battleship/src/PlayerClass/player.js';
 
 
+let currentPlayer;
+let playerOne;
+let computer;
+let isPlayersTurn = true;
+
+
+
 function renderBoards(player, show = true){
     
     let boardArray = player.gameboard.board;
@@ -27,6 +34,7 @@ function renderBoards(player, show = true){
     boardArray.map((row, rowIndex) =>{
         return row.map((cell, colIndex)=>{
             let button = document.createElement('button');
+            button.className = "cell";
             button.style.border = '1px solid black';
             button.style.borderRadius = '3px';
             button.style.fontSize= '5px';
@@ -52,8 +60,12 @@ function renderBoards(player, show = true){
             button.dataset.column = colIndex;
 
         
-        })
-    })
+        });
+    });
+
+    pBoardDisplay.querySelectorAll('button').forEach(button =>{
+        button.addEventListener('click', handleClick);
+    });
 }
 
 function displayTurn(player){
@@ -77,12 +89,73 @@ function puttingShips(player){
 
 }
 
+function handleClick(cellOrEvent, computerIsGoing = false){
+    let oppositePlayer = (currentPlayer === playerOne) ? computer : playerOne;
+    let cell;
+    
+    if (currentPlayer !== playerOne && !computerIsGoing) {
+        return; // Ignore clicks if it's not Player 1's turn (or the computer's turn)
+    }
+
+    //get the indexes of the cell we hit
+
+    if (computerIsGoing ){
+        cell = cellOrEvent
+    }
+
+    else {
+        cell = cellOrEvent.target
+    }
+    let rowIndex = parseInt(cell.dataset.row);
+    let colIndex = parseInt(cell.dataset.column);
+
+    oppositePlayer.gameboard.recieveAttack(rowIndex, colIndex);
+
+    renderBoards(playerOne);
+    renderBoards(computer);
+
+        // switch player 
+    switchPlayer();
+    displayTurn(oppositePlayer);
+
+    if (!computerIsGoing) {
+        handleComputerTurn();
+    }
+}
+
+function handleComputerTurn(){
+
+    const playerBoard = document.querySelector(".pOneBoard");
+
+    // filtering out cells
+    const availableCells = Array.from(playerBoard.querySelectorAll('.cell')).filter(cell => {
+        let rowIndex = parseInt(cell.dataset.row);
+        let colIndex = parseInt(cell.dataset.column);
+        return !playerOne.gameboard.board[rowIndex][colIndex].touched;
+    });
+
+    
+
+    if (availableCells.length === 0) return; // no cells
+
+    const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+
+    handleClick(randomCell, true);
+    
+}
+
+function switchPlayer(){
+    currentPlayer = (currentPlayer === playerOne) ? computer : playerOne;
+}
+
 const startButton = document.getElementById("start");
 startButton.addEventListener("click", ()=>{
     const pOneName = document.getElementById("player1").value;
 
-    const playerOne = new Player(pOneName);
-    const computer = new Player("computer");
+    playerOne = new Player(pOneName);
+    computer = new Player("computer");
+    
+    currentPlayer = playerOne;
 
     const starting = document.querySelector(".startScreen");
     starting.style.display = 'none';
