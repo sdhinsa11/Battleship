@@ -77,13 +77,11 @@ test("recieve attack -v ", () =>{
 });
 
 test("ships sunken", () =>{
-    const shipOne = new Ship(3);
-    const shipTwo = new Ship(2);
 
     const gboard = new Gameboard();
 
-    gboard.placeShips(3, 4, shipOne, "horizontal");
-    gboard.placeShips(1, 2, shipTwo, "vertical");
+    gboard.placeShips(gboard.ships[1], "horizontal", 3, 4);
+    gboard.placeShips(gboard.ships[0], "vertical", 1, 2);
 
     gboard.recieveAttack(3,4);
     gboard.recieveAttack(3,5);

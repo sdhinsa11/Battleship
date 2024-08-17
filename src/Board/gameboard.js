@@ -128,13 +128,16 @@ class Gameboard{
 
     recieveAttack(x, y){
 
+        if (this.board[x][y].touched){
+            // cannot go here
+            console.log("go somwhwere else");
+            return false;
+        } 
+
         this.board[x][y].touched = true;
-
-        // add a functionality that displaye that colour as red/hit
-        //hits this gameboard ships
-
         // need to add if it is a viable place to be hit (i.e. not placing ontop of other place)
 
+        
 
 
         if (this.ships.some(ship => ship.coord.some(c => c.x === x && c.y === y))){ // there is a ship that contains the coordinates that are hit 
@@ -146,15 +149,17 @@ class Gameboard{
 
         else{
             this.missedAttacks.push({x: x, y: y});
-            // return false;
         }
+
+        //spot was viable
+        return true;
         
     }
 
     shipsSunk(){
 
         for (let ship of this.ships){
-            ship.isSunk();
+            // ship.isSunk();
             if (!ship.sunk){ // ships are still not all hit 
                 return false;
             }
