@@ -14,6 +14,7 @@ const startButton = document.getElementById("start");
 const playGame = document.getElementById("playGame");
 const randomizeShips = document.getElementById("randomizePlayerShips");
 const rShips = document.querySelector(".randomShipsPlayerOne");
+const dialog = document.querySelector("dialog");
 
 
 
@@ -86,7 +87,7 @@ function displayTurn(player){
 }
 
 function displayEnd(p){
-    const dialog = document.querySelector("dialog");
+    
 
     const result = document.querySelector(".result");
     result.textContent = `${p.name} Wins!`;
@@ -186,8 +187,6 @@ function handleClick(cellOrEvent, computerIsGoing = false){
 }
 
 
-
-
 startButton.addEventListener("click", ()=>{
     const pOneName = document.getElementById("player1").value;
 
@@ -204,8 +203,6 @@ startButton.addEventListener("click", ()=>{
 
 });
 
-
-
 // this is when the ships are randomized for Player 
 randomizeShips.addEventListener("click", () =>{
     //placing ships and seeing if good
@@ -213,7 +210,6 @@ randomizeShips.addEventListener("click", () =>{
     puttingShips(playerOne);
     renderBoards(playerOne,true);
 });
-
 
 
 playGame.addEventListener("click", ()=>{
@@ -236,19 +232,17 @@ restartButton.addEventListener("click", function(){
 });
 
 playAgain.addEventListener("click", function(){
-    // grab the player name
 
     // reset each board
+    computer.gameboard.clearBoard();
+    playerOne.gameboard.clearBoard();
 
     // go to the other screen
+    dialog.close();
 
+    playerShipsRandom(playerOne);
 
-    // create computer again
-    
-    
-    // render each board
-
-})
+});
 
 
 // Step 1. When press start button, it should render the boards and display whose turn 
@@ -264,6 +258,6 @@ playAgain.addEventListener("click", function(){
 
 //--CHECK
 
-//Step 4. Style it better
+//Step 4. Style it better --Chceck
 
 //Step 5. Extras: Drop ships, AI computer game
