@@ -17,15 +17,22 @@ const rShips = document.querySelector(".randomShipsPlayerOne");
 
 
 
-function renderBoards(player, show = true){
+function renderBoards(player, whichBoard = false, show = true){
     
     let boardArray = player.gameboard.board;
     let pBoardDisplay;
 
 
     if (player.name != "computer"){
-        pBoardDisplay = document.querySelector(".pOneBoard");
+
+        if (whichBoard){
+            pBoardDisplay= document.querySelector(".playerOneBoard");
+        }
+        else{
+            pBoardDisplay = document.querySelector(".pOneBoard");
+        }
     }
+
     else{
         pBoardDisplay = document.querySelector(".compBoard");
     }
@@ -101,6 +108,39 @@ function puttingShips(player){
 
 
 }
+function handleComputerTurn(){
+
+    //picks random cell and "clicks it" to the handle click then once its done it goes back to the other player 
+    // as all buttons have this so once a player picks one button it goes to computer then it swicthed to the players turn again
+
+    const playerBoard = document.querySelector(".pOneBoard");
+
+    // filtering out cells
+    const availableCells = Array.from(playerBoard.querySelectorAll('.cell')).filter(cell => {
+        let rowIndex = parseInt(cell.dataset.row);
+        let colIndex = parseInt(cell.dataset.column);
+        return !playerOne.gameboard.board[rowIndex][colIndex].touched;
+    });
+
+    
+
+    if (availableCells.length === 0) return; // no cells
+
+    const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+
+    handleClick(randomCell, true);
+    
+}
+
+function playerShipsRandom(player){
+    rShips.style.display = 'flex';
+    renderBoards(player, true);
+    puttingShips(player);
+}
+
+function switchPlayer(){
+    currentPlayer = (currentPlayer === playerOne) ? computer : playerOne;
+}
 
 
 
@@ -145,41 +185,7 @@ function handleClick(cellOrEvent, computerIsGoing = false){
     } 
 }
 
-function handleComputerTurn(){
 
-    //picks random cell and "clicks it" to the handle click then once its done it goes back to the other player 
-    // as all buttons have this so once a player picks one button it goes to computer then it swicthed to the players turn again
-
-    const playerBoard = document.querySelector(".pOneBoard");
-
-    // filtering out cells
-    const availableCells = Array.from(playerBoard.querySelectorAll('.cell')).filter(cell => {
-        let rowIndex = parseInt(cell.dataset.row);
-        let colIndex = parseInt(cell.dataset.column);
-        return !playerOne.gameboard.board[rowIndex][colIndex].touched;
-    });
-
-    
-
-    if (availableCells.length === 0) return; // no cells
-
-    const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
-
-    handleClick(randomCell, true);
-    
-}
-
-function playerShipsRandom(player){
-    rShips.style.display = 'flex';
-    renderBoards(player);
-    puttingShips(player);
-
-
-}
-
-function switchPlayer(){
-    currentPlayer = (currentPlayer === playerOne) ? computer : playerOne;
-}
 
 
 startButton.addEventListener("click", ()=>{
@@ -191,22 +197,10 @@ startButton.addEventListener("click", ()=>{
     
     currentPlayer = playerOne;
 
-    
-
     const starting = document.querySelector(".startScreen");
     starting.style.display = 'none';
 
     playerShipsRandom(playerOne);
-
-
-    //placing ships
-    // puttingShips(playerOne);
-    // puttingShips(computer);
-
-    // displaying board and turn
-    // renderBoards(playerOne);
-    // renderBoards(computer);
-    // displayTurn(playerOne);
 
 });
 
@@ -217,7 +211,7 @@ randomizeShips.addEventListener("click", () =>{
     //placing ships and seeing if good
     playerOne.gameboard.clearBoard();
     puttingShips(playerOne);
-    renderBoards(playerOne);
+    renderBoards(playerOne,true);
 });
 
 
@@ -233,7 +227,7 @@ playGame.addEventListener("click", ()=>{
     puttingShips(computer);
     renderBoards(computer);
     
-    displayTurn(playerOne);
+    displayTurn(currentPlayer);
 });
 
 
@@ -267,6 +261,8 @@ playAgain.addEventListener("click", function(){
 // - clearn background of the thing 
 // - randomize sp you can see
 // press start then it starts
+
+//--CHECK
 
 //Step 4. Style it better
 

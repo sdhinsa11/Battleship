@@ -64,7 +64,8 @@
 }
 
 .gContainer{
-    padding: 100px; 
+    padding: 20px; 
+    gap: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
