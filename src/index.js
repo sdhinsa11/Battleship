@@ -1,5 +1,5 @@
 import './style.css';
-
+//https://stackoverflow.com/questions/61568415/how-to-create-a-play-against-the-computer-function-to-my-react-app
 import{
     Player
 } from '/Users/sohanadhinsa/Documents/odin-projects/Javascript_practice/Battleship/src/PlayerClass/player.js';
@@ -8,7 +8,12 @@ import{
 let currentPlayer;
 let playerOne;
 let computer;
-let isPlayersTurn = true;
+const restartButton = document.getElementById("restart");
+const playAgain = document.getElementById("playAgain");
+const startButton = document.getElementById("start");
+const playGame = document.getElementById("playGame");
+const randomizeShips = document.getElementById("randomizePlayerShips");
+const rShips = document.querySelector(".randomShipsPlayerOne");
 
 
 
@@ -88,14 +93,16 @@ function puttingShips(player){
     const shipFour = player.gameboard.ships[3];
     const shipFive = player.gameboard.ships[4];
 
-    player.gameboard.placeShips(shipOne,"horizontal", player.name === "computer" ? true : false, 0,0);
-    player.gameboard.placeShips(shipTwo,"horizontal", player.name === "computer" ? true : false, 1,3);
-    player.gameboard.placeShips(shipThree,"horizontal", player.name === "computer" ? true : false, 2,0);
-    player.gameboard.placeShips(shipFour,"horizontal", player.name === "computer" ? true : false, 3,0);
-    player.gameboard.placeShips(shipFive,"horizontal", player.name === "computer" ? true : false, 9,0);
+    player.gameboard.placeShips(shipOne,"horizontal", true);
+    player.gameboard.placeShips(shipTwo,"horizontal", true);
+    player.gameboard.placeShips(shipThree,"horizontal", true);
+    player.gameboard.placeShips(shipFour,"horizontal", true);
+    player.gameboard.placeShips(shipFive,"horizontal", true);
 
 
 }
+
+
 
 function handleClick(cellOrEvent, computerIsGoing = false){
     let oppositePlayer = (currentPlayer === playerOne) ? computer : playerOne;
@@ -135,11 +142,7 @@ function handleClick(cellOrEvent, computerIsGoing = false){
             handleComputerTurn();
         }
         
-    }
-
-    
-
-    
+    } 
 }
 
 function handleComputerTurn(){
@@ -166,39 +169,105 @@ function handleComputerTurn(){
     
 }
 
+function playerShipsRandom(player){
+    rShips.style.display = 'flex';
+    renderBoards(player);
+    puttingShips(player);
 
 
+}
 
 function switchPlayer(){
     currentPlayer = (currentPlayer === playerOne) ? computer : playerOne;
 }
 
-const startButton = document.getElementById("start");
+
 startButton.addEventListener("click", ()=>{
     const pOneName = document.getElementById("player1").value;
 
+    // create players
     playerOne = new Player(pOneName);
     computer = new Player("computer");
     
     currentPlayer = playerOne;
 
+    
+
     const starting = document.querySelector(".startScreen");
     starting.style.display = 'none';
 
+    playerShipsRandom(playerOne);
+
+
     //placing ships
-    puttingShips(playerOne);
-    puttingShips(computer);
+    // puttingShips(playerOne);
+    // puttingShips(computer);
 
     // displaying board and turn
-    renderBoards(playerOne);
-    renderBoards(computer);
-    displayTurn(playerOne);
+    // renderBoards(playerOne);
+    // renderBoards(computer);
+    // displayTurn(playerOne);
 
+});
+
+
+
+// this is when the ships are randomized for Player 
+randomizeShips.addEventListener("click", () =>{
+    //placing ships and seeing if good
+    playerOne.gameboard.clearBoard();
+    puttingShips(playerOne);
+    renderBoards(playerOne);
+});
+
+
+
+playGame.addEventListener("click", ()=>{
+    // render boards 
+
+    // random div is set to none
+
+    rShips.style.display = 'none';
+    renderBoards(playerOne);
     
+    puttingShips(computer);
+    renderBoards(computer);
+    
+    displayTurn(playerOne);
+});
+
+
+restartButton.addEventListener("click", function(){
+    window.location.reload();
+});
+
+playAgain.addEventListener("click", function(){
+    // grab the player name
+
+    // reset each board
+
+    // go to the other screen
+
+
+    // create computer again
+    
+    
+    // render each board
+
 })
+
+
 // Step 1. When press start button, it should render the boards and display whose turn 
 // things needed: render board - CHECK , event listener on start button - CHECK, create new instances of people -CHECK , create the gameboards - CHECK  and place ships properly - CHECK /randomly - CHECK
 
 //Step 2. After step 1 is done, put in logic for clicking on cell, this is when you add function to buttons that click the cell and see if hit
 // things needed: render board after each turn - CHECK , function for clicking cell -CHECK, making sure the same cell wasnt picked twice - need for player , making sure that its on the board - cHECK, making sure that the game functions are called properly- CHECK, handling how the computer takes turns - CHECK, showing the items/misplaced - CHECK, computer AI for taking turns - cHECK
 
+//Step 3. Get the random placements for the ship/or get player to input them, play again button , hide the computer ships positions 
+// - clearn background of the thing 
+// - randomize sp you can see
+// press start then it starts
+
+//Step 4. Style it better
+
+//Step 5. Extras: Drop ships, AI computer game

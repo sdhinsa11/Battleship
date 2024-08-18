@@ -22,6 +22,12 @@ class Ship{
         }
     }
 
+    
+    clearCoordinates() {
+        this.coordinates = [];
+        this.hits = 0; // Reset hits as well, if necessary
+    }
+
 }
 
 export{

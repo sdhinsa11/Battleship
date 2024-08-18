@@ -22,6 +22,19 @@ class Gameboard{
         return gboard;
     }
 
+
+    clearBoard(){
+        this.board = this.creatingBoard();
+
+        // Clear the coordinates on each ship
+        this.ships.forEach(ship => {
+            ship.clearCoordinates();
+        });
+
+        this.missedAttacks = [];
+
+    }
+
     placeShips(ship, direction=undefined, rand = false, x=undefined, y=undefined){
 
         // random choice 

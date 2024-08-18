@@ -45,3 +45,28 @@
     font-weight: bold;
     font-size: larger;
 }
+
+.randomShipsPlayerOne{
+    display:none;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* gap: 30px; */
+
+
+}
+.displayP{
+    text-align: center;
+    padding-top: 100px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.gContainer{
+    padding: 100px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
