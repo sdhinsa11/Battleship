@@ -24,8 +24,9 @@ class Ship{
 
     
     clearCoordinates() {
-        this.coordinates = [];
+        this.coord = [];
         this.hits = 0; // Reset hits as well, if necessary
+        this.sunk = false;
     }
 
 }

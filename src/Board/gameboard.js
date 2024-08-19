@@ -74,9 +74,6 @@ class Gameboard{
                 console.log("Repick coordinates");
             }
         }
-
-        
-
     }
 
 
@@ -149,9 +146,6 @@ class Gameboard{
 
         this.board[x][y].touched = true;
         // need to add if it is a viable place to be hit (i.e. not placing ontop of other place)
-
-        
-
 
         if (this.ships.some(ship => ship.coord.some(c => c.x === x && c.y === y))){ // there is a ship that contains the coordinates that are hit 
             const hitShip = this.ships.find(ship => ship.coord.some(c => c.x === x && c.y === y)); // getting the ship that is hit

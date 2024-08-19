@@ -60,7 +60,7 @@ function renderBoards(player, whichBoard = false, show = true){
                 button.style.backgroundColor = "dark grey";
             }
 
-            else if (player.gameboard.board[rowIndex][colIndex].s != null){
+            else if (player.gameboard.board[rowIndex][colIndex].s != null && show){
                 button.style.backgroundColor = "pink";
             }
             else{
@@ -110,7 +110,6 @@ function puttingShips(player){
 
 }
 function handleComputerTurn(){
-
     //picks random cell and "clicks it" to the handle click then once its done it goes back to the other player 
     // as all buttons have this so once a player picks one button it goes to computer then it swicthed to the players turn again
 
@@ -123,20 +122,18 @@ function handleComputerTurn(){
         return !playerOne.gameboard.board[rowIndex][colIndex].touched;
     });
 
-    
-
     if (availableCells.length === 0) return; // no cells
 
     const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
 
     handleClick(randomCell, true);
-    
 }
 
 function playerShipsRandom(player){
     rShips.style.display = 'flex';
     renderBoards(player, true);
     puttingShips(player);
+    // get rid of board here then show it when the thing comes back up 
 }
 
 function switchPlayer(){
@@ -146,7 +143,7 @@ function switchPlayer(){
 
 
 function handleClick(cellOrEvent, computerIsGoing = false){
-    let oppositePlayer = (currentPlayer === playerOne) ? computer : playerOne;
+    let oppositePlayer = (computerIsGoing) ? playerOne : computer;
     let cell;
     
     if (currentPlayer !== playerOne && !computerIsGoing) {
@@ -169,7 +166,7 @@ function handleClick(cellOrEvent, computerIsGoing = false){
 
     if (oppositePlayer.gameboard.recieveAttack(rowIndex, colIndex)){
         renderBoards(playerOne);
-        renderBoards(computer);
+        renderBoards(computer, false, false);
 
         if (oppositePlayer.gameboard.shipsSunk()){
             displayEnd(currentPlayer);
@@ -179,6 +176,8 @@ function handleClick(cellOrEvent, computerIsGoing = false){
         switchPlayer();
         displayTurn(oppositePlayer);
 
+
+        // its the computer turn
         if (!computerIsGoing) {
             handleComputerTurn();
         }
@@ -221,7 +220,7 @@ playGame.addEventListener("click", ()=>{
     renderBoards(playerOne);
     
     puttingShips(computer);
-    renderBoards(computer);
+    renderBoards(computer, false, false);
     
     displayTurn(currentPlayer);
 });
@@ -234,11 +233,23 @@ restartButton.addEventListener("click", function(){
 playAgain.addEventListener("click", function(){
 
     // reset each board
+
+    // Clear or hide the previous boards
+    document.querySelector(".pOneBoard").innerHTML = ''; // Clear Player One's board
+    document.querySelector(".compBoard").innerHTML = ''; // Clear Computer's board
+    
+
+    document.querySelector(".displayTurns").innerHTML='';
+    // document.querySelector(".main").innerHTML = ""; - cant do this beacuse then it will be not there 
+
     computer.gameboard.clearBoard();
     playerOne.gameboard.clearBoard();
 
+    currentPlayer = playerOne;
+
     // go to the other screen
     dialog.close();
+    
 
     playerShipsRandom(playerOne);
 
