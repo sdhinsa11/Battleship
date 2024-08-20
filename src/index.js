@@ -24,7 +24,7 @@ function renderBoards(player, whichBoard = false, show = true){
     let pBoardDisplay;
 
 
-    if (player.name != "computer"){
+    if (player.name != "Computer"){
 
         if (whichBoard){
             pBoardDisplay= document.querySelector(".playerOneBoard");
@@ -124,9 +124,13 @@ function handleComputerTurn(){
 
     if (availableCells.length === 0) return; // no cells
 
-    const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+    //delaying computer turn by 2 seconds
+    setTimeout(()=>{
+        const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+        handleClick(randomCell, true);
 
-    handleClick(randomCell, true);
+    }, 2000);
+    
 }
 
 function playerShipsRandom(player){
@@ -172,7 +176,8 @@ function handleClick(cellOrEvent, computerIsGoing = false){
             displayEnd(currentPlayer);
         }
 
-        // switch player 
+
+        // switch player and is other players turn
         switchPlayer();
         displayTurn(oppositePlayer);
 
@@ -191,7 +196,7 @@ startButton.addEventListener("click", ()=>{
 
     // create players
     playerOne = new Player(pOneName);
-    computer = new Player("computer");
+    computer = new Player("Computer");
     
     currentPlayer = playerOne;
 
