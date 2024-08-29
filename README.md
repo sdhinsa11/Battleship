@@ -6,11 +6,15 @@ in order to pick a place on the player game board. After the game as ended the u
 entirely bringing the user back to the main screen. 
 
 What I learned:
+- How to incorporate a computer turn
+- Introducing random placement with choosing ships 
+- Wrote tests in Jest to test the Ship class, Player class, Gameboard class
 
 
 Areas for improvement:
-- include levels (Easy, Medium, Hard) where the computer is an AI thus determining the levels
+- Include levels (Easy, Medium, Hard) where the computer is an AI thus determining the levels
 - Allow users to drag and drop there ships
+- Modifying the dom code into a design pattern (such as IIFEs) or practicing OOP principles on it 
 
 These improvements will be implemented shortly. 
 
