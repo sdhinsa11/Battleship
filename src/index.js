@@ -101,6 +101,7 @@ function puttingShips(player){
     const shipFour = player.gameboard.ships[3];
     const shipFive = player.gameboard.ships[4];
 
+    // randomly places player ships even though its set up like this
     player.gameboard.placeShips(shipOne,"horizontal", true);
     player.gameboard.placeShips(shipTwo,"horizontal", true);
     player.gameboard.placeShips(shipThree,"horizontal", true);
